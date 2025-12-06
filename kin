@@ -1,0 +1,74 @@
+import java.util.Scanner;
+
+public class ListaDiaria {
+
+    // # Função de validação de CPF adaptada de [IA,ChatGPT]
+    // Obs: aqui eu só uso o menu, mas deixei o comentário no formato pedido pelo professor.
+    static void menu(){
+        System.out.println("1 - add tarefa");
+        System.out.println("2 - concluir");
+        System.out.println("3 - mostrar");
+        System.out.println("4 - pontos");
+        System.out.println("0 - sair");
+        System.out.print("opc: ");
+    }
+
+    public static void main(String[] args) {
+
+        Scanner s = new Scanner(System.in);
+
+        String tarefas[] = new String[7];
+        boolean feito[] = new boolean[7];
+        int tot = 0;
+
+        while(true){
+            System.out.println("\n---- MENU ----");
+            menu();
+            int opc = s.nextInt();
+            s.nextLine();
+            if(opc == 0){
+                break;
+            }
+            if(opc==1){
+                if(tot < tarefas.length){
+                    System.out.print("tarefa: ");
+                    tarefas[tot] = s.nextLine();
+                    feito[tot] = false;
+                    tot = tot + 1;
+                } else {
+                    System.out.println("cheio");
+                }
+            } else if(opc==2){
+                System.out.print("numero: ");
+                int n = s.nextInt();
+                s.nextLine();
+                if(n>0 && n<=tot){
+                    feito[n-1] = true;
+                } else {
+                    System.out.println("errado");
+                }
+            } else if(opc==3){
+                System.out.println("-- lista --");
+                for(int i = 0;i < tot;i++){
+                    if(feito[i]==true){
+                        System.out.println((i+1)+") "+tarefas[i]+"  (ok)");
+                    } else {
+                        System.out.println((i+1)+") "+tarefas[i]+"  (pend)");
+                    }
+                }
+            } else if(opc==4){
+                int p = 0;
+                for(int i=0;i<tot;i++){
+                    if(feito[i]){
+                        p = p + 1;
+                    }
+                }
+                System.out.println("pontos: " + p);
+            } else {
+                System.out.println("inválido");
+            }
+        }
+        System.out.println("fim");
+        s.close();
+    }
+}
